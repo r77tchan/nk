@@ -85,7 +85,8 @@ export default function Test() {
             rows={10}
             value={textA}
             onChange={(e) => setTextA(e.target.value)}
-            className="w-full border p-2 rounded mt-1"
+            wrap="off"
+            className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre"
           />
         </div>
         <div>
@@ -103,7 +104,8 @@ export default function Test() {
             rows={10}
             value={textB}
             onChange={(e) => setTextB(e.target.value)}
-            className="w-full border p-2 rounded mt-1"
+            wrap="off"
+            className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre"
           />
         </div>
       </div>
@@ -131,11 +133,13 @@ export default function Test() {
           どっちかにしかない単語
         </label>
       </div>
-      <ul className="list-disc pl-6">
+      <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap">
         {results.map((r) => (
-          <li key={r.word}>
+          <li key={r.word} className="whitespace-nowrap">
             {r.word}
-            {mode === "diff" && <span className="text-sm text-gray-500"> ({r.from})</span>}
+            {mode === "diff" && (
+              <span className="text-sm text-gray-500 select-none"> ({r.from})</span>
+            )}
           </li>
         ))}
       </ul>
