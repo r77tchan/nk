@@ -13,6 +13,24 @@ export default function Test() {
   const [textB, setTextB] = useState("");
   const [mode, setMode] = useState<"common" | "diff">("common");
 
+  const handleFileA = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const content = await file.text();
+    setTextA(content);
+  };
+
+  const handleFileB = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const content = await file.text();
+    setTextB(content);
+  };
+
   const wordsA = useMemo(() => {
     return new Set(
       textA
@@ -56,6 +74,12 @@ export default function Test() {
           <label htmlFor="areaA" className="font-bold">
             A
           </label>
+          <input
+            type="file"
+            accept="text/*"
+            onChange={handleFileA}
+            className="block mt-1"
+          />
           <textarea
             id="areaA"
             rows={10}
@@ -68,6 +92,12 @@ export default function Test() {
           <label htmlFor="areaB" className="font-bold">
             B
           </label>
+          <input
+            type="file"
+            accept="text/*"
+            onChange={handleFileB}
+            className="block mt-1"
+          />
           <textarea
             id="areaB"
             rows={10}
