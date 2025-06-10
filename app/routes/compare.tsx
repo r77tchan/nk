@@ -15,6 +15,7 @@ export default function Test() {
   const [fileBName, setFileBName] = useState("");
   const [mode, setMode] = useState<"common" | "diff">("common");
 
+
   const handleFileA = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -75,7 +76,7 @@ export default function Test() {
 
   return (
     <main className="pt-16 p-4 container mx-auto space-y-4">
-      <div className="grid grid-cols-2 gap-4 grid-rows-[auto_1fr]">
+      <div className="grid grid-cols-2 gap-4 grid-rows-[auto_auto]">
         <div>
           <label htmlFor="areaA" className="font-bold">A</label>
           <input
@@ -106,7 +107,7 @@ export default function Test() {
           value={textA}
           onChange={(e) => setTextA(e.target.value)}
           wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2 font-mono"
+          className="w-full h-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2 font-mono resize-y"
         />
         <textarea
           id="areaB"
@@ -114,7 +115,7 @@ export default function Test() {
           value={textB}
           onChange={(e) => setTextB(e.target.value)}
           wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono"
+          className="w-full h-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono resize-y"
         />
       </div>
       <div className="space-x-4">
