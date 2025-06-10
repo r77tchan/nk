@@ -1,13 +1,22 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "トップページ" },
+    { name: "description", content: "シンプルなトップページ" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <main className="pt-16 p-4 container mx-auto space-y-4">
+      <h1 className="text-xl font-bold">トップページ</h1>
+      <p>
+        <Link to="/test" className="text-blue-700 hover:underline">
+          /test へ移動
+        </Link>
+      </p>
+    </main>
+  );
 }
