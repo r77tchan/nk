@@ -10,7 +10,7 @@ export function Sidebar() {
     ].join(" ");
 
   return (
-    <aside className="w-48 shrink-0 h-screen bg-gray-100 p-4">
+    <aside className="w-48 shrink-0 h-full overflow-y-auto bg-gray-100 p-4">
       <nav className="space-y-2">
         <NavLink to="/" end className={linkClass}>
           /
