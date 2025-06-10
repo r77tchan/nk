@@ -11,6 +11,8 @@ export function meta({}: Route.MetaArgs) {
 export default function Test() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
+  const [fileAName, setFileAName] = useState("");
+  const [fileBName, setFileBName] = useState("");
   const [mode, setMode] = useState<"common" | "diff">("common");
 
   const handleFileA = async (
@@ -18,7 +20,9 @@ export default function Test() {
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const content = await file.text();
+    setFileAName(file.name);
+    const buffer = await file.arrayBuffer();
+    const content = new TextDecoder("shift-jis").decode(buffer);
     setTextA(content);
   };
 
@@ -27,7 +31,9 @@ export default function Test() {
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const content = await file.text();
+    setFileBName(file.name);
+    const buffer = await file.arrayBuffer();
+    const content = new TextDecoder("shift-jis").decode(buffer);
     setTextB(content);
   };
 
@@ -78,8 +84,11 @@ export default function Test() {
             type="file"
             accept="text/*"
             onChange={handleFileA}
-            className="block mt-1"
+            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100"
           />
+          {fileAName && (
+            <div className="mt-1 text-sm break-all">{fileAName}</div>
+          )}
           <textarea
             id="areaA"
             rows={10}
@@ -97,8 +106,11 @@ export default function Test() {
             type="file"
             accept="text/*"
             onChange={handleFileB}
-            className="block mt-1"
+            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100"
           />
+          {fileBName && (
+            <div className="mt-1 text-sm break-all">{fileBName}</div>
+          )}
           <textarea
             id="areaB"
             rows={10}
