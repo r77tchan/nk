@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import type { Route } from "./+types/compare";
 
 export function meta({}: Route.MetaArgs) {
@@ -14,6 +14,41 @@ export default function Test() {
   const [fileAName, setFileAName] = useState("");
   const [fileBName, setFileBName] = useState("");
   const [mode, setMode] = useState<"common" | "diff">("common");
+
+  const areaARef = useRef<HTMLTextAreaElement>(null);
+  const areaBRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const a = areaARef.current;
+    const b = areaBRef.current;
+    if (!a || !b) return;
+    let skipA = false;
+    let skipB = false;
+    const obsA = new ResizeObserver((entries) => {
+      if (skipA) {
+        skipA = false;
+        return;
+      }
+      const height = entries[0].contentRect.height;
+      skipB = true;
+      b.style.height = `${height}px`;
+    });
+    const obsB = new ResizeObserver((entries) => {
+      if (skipB) {
+        skipB = false;
+        return;
+      }
+      const height = entries[0].contentRect.height;
+      skipA = true;
+      a.style.height = `${height}px`;
+    });
+    obsA.observe(a);
+    obsB.observe(b);
+    return () => {
+      obsA.disconnect();
+      obsB.disconnect();
+    };
+  }, []);
 
   const handleFileA = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -106,7 +141,8 @@ export default function Test() {
           value={textA}
           onChange={(e) => setTextA(e.target.value)}
           wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2 font-mono"
+          ref={areaARef}
+          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2 font-mono resize-y"
         />
         <textarea
           id="areaB"
@@ -114,7 +150,8 @@ export default function Test() {
           value={textB}
           onChange={(e) => setTextB(e.target.value)}
           wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono"
+          ref={areaBRef}
+          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono resize-y"
         />
       </div>
       <div className="space-x-4">
