@@ -6,6 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useLocation } from "react-router";
+
+import { Sidebar } from "./components/Sidebar";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -42,7 +45,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const location = useLocation();
+  const showSidebar = !location.pathname.startsWith("/welcome");
+
+  if (!showSidebar) {
+    return <Outlet />;
+  }
+
+  return (
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex-1">
+        <Outlet />
+      </div>
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
