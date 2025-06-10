@@ -75,51 +75,47 @@ export default function Test() {
 
   return (
     <main className="pt-16 p-4 container mx-auto space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 grid-rows-[auto_1fr]">
         <div>
-          <label htmlFor="areaA" className="font-bold">
-            A
-          </label>
+          <label htmlFor="areaA" className="font-bold">A</label>
           <input
             type="file"
             accept="text/*"
             onChange={handleFileA}
-            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
+            className="block w-fit mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
           />
-          <div className="mt-1 text-sm overflow-x-auto whitespace-nowrap">
+          <div className="mt-1 text-sm break-words whitespace-pre-wrap">
             {fileAName || "選択されていません"}
           </div>
-          <textarea
-            id="areaA"
-            rows={10}
-            value={textA}
-            onChange={(e) => setTextA(e.target.value)}
-            wrap="off"
-            className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre"
-          />
         </div>
         <div>
-          <label htmlFor="areaB" className="font-bold">
-            B
-          </label>
+          <label htmlFor="areaB" className="font-bold">B</label>
           <input
             type="file"
             accept="text/*"
             onChange={handleFileB}
-            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
+            className="block w-fit mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
           />
-          <div className="mt-1 text-sm overflow-x-auto whitespace-nowrap">
+          <div className="mt-1 text-sm break-words whitespace-pre-wrap">
             {fileBName || "選択されていません"}
           </div>
-          <textarea
-            id="areaB"
-            rows={10}
-            value={textB}
-            onChange={(e) => setTextB(e.target.value)}
-            wrap="off"
-            className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre"
-          />
         </div>
+        <textarea
+          id="areaA"
+          rows={10}
+          value={textA}
+          onChange={(e) => setTextA(e.target.value)}
+          wrap="off"
+          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2"
+        />
+        <textarea
+          id="areaB"
+          rows={10}
+          value={textB}
+          onChange={(e) => setTextB(e.target.value)}
+          wrap="off"
+          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2"
+        />
       </div>
       <div className="space-x-4">
         <label className="cursor-pointer">
