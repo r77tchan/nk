@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, useLayoutEffect } from "react";
 import type { Route } from "./+types/compare";
 
 export function meta({}: Route.MetaArgs) {
@@ -14,6 +14,31 @@ export default function Test() {
   const [fileAName, setFileAName] = useState("");
   const [fileBName, setFileBName] = useState("");
   const [mode, setMode] = useState<"common" | "diff">("common");
+
+  const areaARef = useRef<HTMLTextAreaElement>(null);
+  const areaBRef = useRef<HTMLTextAreaElement>(null);
+  const lastHeightRef = useRef<number>();
+
+  useLayoutEffect(() => {
+    const a = areaARef.current;
+    const b = areaBRef.current;
+    if (!a || !b) return;
+
+    const update = () => {
+      const max = Math.max(a.clientHeight, b.clientHeight);
+      if (lastHeightRef.current !== max) {
+        lastHeightRef.current = max;
+        a.style.height = `${max}px`;
+        b.style.height = `${max}px`;
+      }
+    };
+
+    const observer = new ResizeObserver(update);
+    observer.observe(a);
+    observer.observe(b);
+    update();
+    return () => observer.disconnect();
+  }, []);
 
   const handleFileA = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -100,22 +125,28 @@ export default function Test() {
             {fileBName || "選択されていません"}
           </div>
         </div>
-        <textarea
-          id="areaA"
-          rows={10}
-          value={textA}
-          onChange={(e) => setTextA(e.target.value)}
-          wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2 font-mono"
-        />
-        <textarea
-          id="areaB"
-          rows={10}
-          value={textB}
-          onChange={(e) => setTextB(e.target.value)}
-          wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono"
-        />
+        <div className="h-full col-start-1 row-start-2">
+          <textarea
+            ref={areaARef}
+            id="areaA"
+            rows={10}
+            value={textA}
+            onChange={(e) => setTextA(e.target.value)}
+            wrap="off"
+            className="w-full h-full resize-y border p-2 rounded mt-1 overflow-x-auto whitespace-pre font-mono"
+          />
+        </div>
+        <div className="h-full col-start-2 row-start-2">
+          <textarea
+            ref={areaBRef}
+            id="areaB"
+            rows={10}
+            value={textB}
+            onChange={(e) => setTextB(e.target.value)}
+            wrap="off"
+            className="w-full h-full resize-y border p-2 rounded mt-1 overflow-x-auto whitespace-pre font-mono"
+          />
+        </div>
       </div>
       <div className="space-x-4">
         <label className="cursor-pointer">
