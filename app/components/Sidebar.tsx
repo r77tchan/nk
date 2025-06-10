@@ -18,6 +18,9 @@ export function Sidebar() {
         <NavLink to="/test" className={linkClass}>
           /test
         </NavLink>
+        <NavLink to="/compare" className={linkClass}>
+          /compare
+        </NavLink>
       </nav>
     </aside>
   );
