@@ -106,7 +106,7 @@ export default function Test() {
           value={textA}
           onChange={(e) => setTextA(e.target.value)}
           wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2"
+          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-1 row-start-2 font-mono"
         />
         <textarea
           id="areaB"
@@ -114,7 +114,7 @@ export default function Test() {
           value={textB}
           onChange={(e) => setTextB(e.target.value)}
           wrap="off"
-          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2"
+          className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono"
         />
       </div>
       <div className="space-x-4">
@@ -141,7 +141,7 @@ export default function Test() {
           どっちかにしかない単語
         </label>
       </div>
-      <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap">
+      <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap font-mono">
         {results.map((r) => (
           <li key={r.word} className="whitespace-nowrap">
             {r.word}
