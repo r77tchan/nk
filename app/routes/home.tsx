@@ -13,8 +13,8 @@ export default function Home() {
     <main className="pt-16 p-4 container mx-auto space-y-4">
       <h1 className="text-xl font-bold">トップページ</h1>
       <p>
-        <Link to="/compare" className="text-blue-700 hover:underline">
-          /compare へ移動
+        <Link to="/test" className="text-blue-700 hover:underline">
+          /test へ移動
         </Link>
       </p>
     </main>
