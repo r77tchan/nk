@@ -84,11 +84,11 @@ export default function Test() {
             type="file"
             accept="text/*"
             onChange={handleFileA}
-            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100"
+            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
           />
-          {fileAName && (
-            <div className="mt-1 text-sm break-all">{fileAName}</div>
-          )}
+          <div className="mt-1 text-sm overflow-x-auto whitespace-nowrap">
+            {fileAName || "選択されていません"}
+          </div>
           <textarea
             id="areaA"
             rows={10}
@@ -106,11 +106,11 @@ export default function Test() {
             type="file"
             accept="text/*"
             onChange={handleFileB}
-            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100"
+            className="block mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
           />
-          {fileBName && (
-            <div className="mt-1 text-sm break-all">{fileBName}</div>
-          )}
+          <div className="mt-1 text-sm overflow-x-auto whitespace-nowrap">
+            {fileBName || "選択されていません"}
+          </div>
           <textarea
             id="areaB"
             rows={10}
