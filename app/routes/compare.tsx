@@ -102,7 +102,7 @@ export default function Compare() {
         </div>
         <textarea
           id="areaA"
-          rows={10}
+          rows={2}
           value={textA}
           onChange={(e) => setTextA(e.target.value)}
           wrap="off"
@@ -110,7 +110,7 @@ export default function Compare() {
         />
         <textarea
           id="areaB"
-          rows={10}
+          rows={2}
           value={textB}
           onChange={(e) => setTextB(e.target.value)}
           wrap="off"
