@@ -45,6 +45,36 @@ export default function Compare() {
     setTextB(content);
   };
 
+  const parseCsv = (line: string): string[] => {
+    const res: string[] = [];
+    let cur = "";
+    let quote = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (quote && line[i + 1] === '"') {
+          cur += '"';
+          i++;
+        } else {
+          quote = !quote;
+        }
+      } else if (ch === ',' && !quote) {
+        res.push(cur);
+        cur = "";
+      } else {
+        cur += ch;
+      }
+    }
+    res.push(cur);
+    return res.map((v) => {
+      let t = v.trim();
+      if (t.startsWith('"') && t.endsWith('"')) {
+        t = t.slice(1, -1);
+      }
+      return t;
+    });
+  };
+
   const extract = (
     text: string,
     type: "text" | "csv",
@@ -66,16 +96,12 @@ export default function Compare() {
     }
     for (const line of lines) {
       if (!line.trim()) continue;
-      try {
-        const arr = JSON.parse(`[${line}]`);
-        if (col < 1 || col > arr.length) {
-          return { set: new Set(), error: "指定された列は存在しません" };
-        }
-        const value = String(arr[col - 1]).trim();
-        if (value) result.add(value);
-      } catch {
-        return { set: new Set(), error: "CSVのパースに失敗しました" };
+      const arr = parseCsv(line);
+      if (col < 1 || col > arr.length) {
+        return { set: new Set(), error: "指定された列は存在しません" };
       }
+      const value = arr[col - 1].trim();
+      if (value) result.add(value);
     }
     return { set: result };
   };
