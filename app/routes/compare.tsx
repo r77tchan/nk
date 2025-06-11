@@ -3,12 +3,12 @@ import type { Route } from "./+types/compare";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Test Page" },
-    { name: "description", content: "Dummy text page" },
+    { title: "Compare Page" },
+    { name: "description", content: "----------" },
   ];
 }
 
-export default function Test() {
+export default function Compare() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
   const [fileAName, setFileAName] = useState("");
