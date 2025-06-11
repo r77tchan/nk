@@ -119,11 +119,11 @@ export default function Extract() {
   const results = useMemo(() => {
     if (processedA.error || processedB.error) return [] as string[];
     const targets = processedA.list;
-    const words = new Set(processedB.list.map((w) => w.key));
+    const words = new Set(processedB.list.map((w) => w.key.trim()));
     if (words.size === 0) return targets.map((t) => t.original);
     const list: string[] = [];
     for (const t of targets) {
-      if (words.has(t.key)) list.push(t.original);
+      if (words.has(t.key.trim())) list.push(t.original);
     }
     return list;
   }, [processedA, processedB]);
