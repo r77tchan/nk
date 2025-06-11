@@ -18,8 +18,8 @@ export function Sidebar() {
         <NavLink to="/test" className={linkClass}>
           /test
         </NavLink>
-        <NavLink to="/compare" className={linkClass}>
-          /compare
+        <NavLink to="/dup" className={linkClass}>
+          /dup
         </NavLink>
       </nav>
     </aside>

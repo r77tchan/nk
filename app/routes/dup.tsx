@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
-import type { Route } from "./+types/compare";
+import type { Route } from "./+types/dup";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Compare Page" },
+    { title: "重複確認" },
     { name: "description", content: "----------" },
   ];
 }
 
-export default function Compare() {
+export default function dupCheck() {
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
   const [fileAName, setFileAName] = useState("");
@@ -139,6 +139,7 @@ export default function Compare() {
 
   return (
     <main className="pt-16 p-4 container mx-auto space-y-4">
+      <h1 className="text-xl font-bold">重複確認</h1>
       <div className="grid grid-cols-2 gap-4 grid-rows-[auto_1fr]">
         <div>
           <label htmlFor="areaA" className="font-bold">A</label>
