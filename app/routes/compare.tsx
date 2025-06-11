@@ -78,24 +78,34 @@ export default function Compare() {
       <div className="grid grid-cols-2 gap-4 grid-rows-[auto_1fr]">
         <div>
           <label htmlFor="areaA" className="font-bold">A</label>
-          <input
-            type="file"
-            accept="text/*"
-            onChange={handleFileA}
-            className="block w-fit mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
-          />
+          <label className="block w-fit mt-1 text-sm cursor-pointer">
+            <span className="inline-block file:mr-2 rounded border border-gray-300 bg-gray-50 px-2 py-1 text-gray-700 hover:bg-gray-100">
+              ファイルを選択
+            </span>
+            <input
+              type="file"
+              accept="text/*"
+              onChange={handleFileA}
+              className="hidden"
+            />
+          </label>
           <div className="mt-1 text-sm break-words whitespace-pre-wrap">
             {fileAName || "選択されていません"}
           </div>
         </div>
         <div>
           <label htmlFor="areaB" className="font-bold">B</label>
-          <input
-            type="file"
-            accept="text/*"
-            onChange={handleFileB}
-            className="block w-fit mt-1 text-sm file:mr-2 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-2 file:py-1 file:text-gray-700 hover:file:bg-gray-100 text-transparent cursor-pointer"
-          />
+          <label className="block w-fit mt-1 text-sm cursor-pointer">
+            <span className="inline-block file:mr-2 rounded border border-gray-300 bg-gray-50 px-2 py-1 text-gray-700 hover:bg-gray-100">
+              ファイルを選択
+            </span>
+            <input
+              type="file"
+              accept="text/*"
+              onChange={handleFileB}
+              className="hidden"
+            />
+          </label>
           <div className="mt-1 text-sm break-words whitespace-pre-wrap">
             {fileBName || "選択されていません"}
           </div>
@@ -127,7 +137,7 @@ export default function Compare() {
             onChange={() => setMode("common")}
             className="mr-1"
           />
-          どっちにもある単語
+          どっちにもある行
         </label>
         <label className="cursor-pointer">
           <input
@@ -138,7 +148,7 @@ export default function Compare() {
             onChange={() => setMode("diff")}
             className="mr-1"
           />
-          どっちかにしかない単語
+          どっちかにしかない行
         </label>
       </div>
       <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap font-mono">
