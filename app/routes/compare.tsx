@@ -287,7 +287,7 @@ export default function Compare() {
             onChange={() => setMode("common")}
             className="mr-1"
           />
-          どっちにもある行
+          どっちにもある
         </label>
         <label className="cursor-pointer">
           <input
@@ -298,7 +298,7 @@ export default function Compare() {
             onChange={() => setMode("diff")}
             className="mr-1"
           />
-          どっちかにしかない行
+          どっちかにしかない
         </label>
       </div>
       <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap font-mono">
