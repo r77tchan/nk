@@ -295,9 +295,9 @@ export default function Extract() {
           className="w-full border p-2 rounded mt-1 overflow-x-auto whitespace-pre col-start-2 row-start-2 font-mono"
         />
       </div>
-      <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap font-mono">
+      <ul className="list-disc pl-6 overflow-x-auto whitespace-pre font-mono">
         {results.map((r, idx) => (
-          <li key={idx} className="whitespace-nowrap">
+          <li key={idx} className="whitespace-pre">
             {r}
           </li>
         ))}
