@@ -66,13 +66,14 @@ export default function Extract() {
     }
     res.push(cur);
     return res.map((v) => {
-      let t = v.trim();
-      if (t.startsWith('"') && t.endsWith('"')) {
-        t = t.slice(1, -1);
+      if (v.startsWith('"') && v.endsWith('"')) {
+        return v.slice(1, -1);
       }
-      return t;
+      return v;
     });
   };
+
+  type Parsed = { original: string; key: string };
 
   const extract = (
     text: string,
@@ -80,29 +81,29 @@ export default function Extract() {
     start: number,
     end: number,
     col: number
-  ): { list: string[]; error?: string } => {
+  ): { list: Parsed[]; error?: string } => {
     const lines = text.split(/\r?\n/);
-    const result: string[] = [];
+    const result: Parsed[] = [];
     if (type === "text") {
       const s = Math.max(0, start - 1);
       const e = Math.min(end, 9999);
       for (const line of lines) {
         const part = line.slice(s, Math.min(e, line.length));
-        const trimmed = part.trim();
-        if (trimmed) result.push(trimmed);
+        if (part !== "" || line !== "") {
+          result.push({ original: line, key: part });
+        }
       }
-      return { list: Array.from(new Set(result)) };
+      return { list: result };
     }
     for (const line of lines) {
-      if (!line.trim()) continue;
+      if (!line) continue;
       const arr = parseCsv(line);
       if (col < 1 || col > arr.length) {
         return { list: [], error: "指定された列は存在しません" };
       }
-      const value = arr[col - 1].trim();
-      if (value) result.push(value);
+      result.push({ original: line, key: arr[col - 1] });
     }
-    return { list: Array.from(new Set(result)) };
+    return { list: result };
   };
 
   const processedA = useMemo(
@@ -118,11 +119,11 @@ export default function Extract() {
   const results = useMemo(() => {
     if (processedA.error || processedB.error) return [] as string[];
     const targets = processedA.list;
-    const words = new Set(processedB.list);
-    if (words.size === 0) return targets;
+    const words = new Set(processedB.list.map((w) => w.key));
+    if (words.size === 0) return targets.map((t) => t.original);
     const list: string[] = [];
     for (const t of targets) {
-      if (words.has(t)) list.push(t);
+      if (words.has(t.key)) list.push(t.original);
     }
     return list;
   }, [processedA, processedB]);
@@ -295,8 +296,8 @@ export default function Extract() {
         />
       </div>
       <ul className="list-disc pl-6 overflow-x-auto whitespace-nowrap font-mono">
-        {results.map((r) => (
-          <li key={r} className="whitespace-nowrap">
+        {results.map((r, idx) => (
+          <li key={idx} className="whitespace-nowrap">
             {r}
           </li>
         ))}
