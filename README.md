@@ -66,7 +66,7 @@ The containerized application can be deployed to any platform that supports Dock
 
 ### GitHub Pages
 
-`vite.config.ts` で `base: '/nk/'`、`react-router.config.ts` で `basename: '/nk'` を設定しています。ビルド後に `build/client/index.html` を `build/client/404.html` にコピーすることで、直接 `/nk/edit` などにアクセスされた場合も SPA として動作します。
+`vite.config.ts` で `base: '/nk/'`、`react-router.config.ts` で `basename: '/nk/'` を設定しています。ビルド後に `build/client/index.html` を `build/client/404.html` にコピーすることで、直接 `/nk/edit` などにアクセスされた場合も SPA として動作します。
 
 ```bash
 npm run build
