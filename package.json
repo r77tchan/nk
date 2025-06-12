@@ -2,8 +2,10 @@
   "name": "nk",
   "private": true,
   "type": "module",
+  "homepage": "https://r77tchan.github.io/nk/",
   "scripts": {
     "build": "react-router build",
+    "postbuild": "cp build/client/index.html build/client/404.html",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
