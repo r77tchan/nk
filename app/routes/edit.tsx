@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Route } from "./+types/edit";
 
 export function meta({}: Route.MetaArgs) {
@@ -15,6 +15,10 @@ export default function Edit() {
   const [lineOpt, setLineOpt] = useState<"number" | "contains" | "blank">("number");
   const [headOpt, setHeadOpt] = useState<"trim" | "space">("trim");
   const [input, setInput] = useState("");
+
+  useEffect(() => {
+    setInput("");
+  }, [action, lineOpt, headOpt]);
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,7 +39,10 @@ export default function Edit() {
       } else if (lineOpt === "contains") {
         result = lines.filter((l) => !l.includes(input));
       } else {
+        const endsWithNewline = /\r?\n$/.test(text);
         result = lines.filter((l) => l.trim() !== "");
+        setText(result.join("\n") + (endsWithNewline ? "\n" : ""));
+        return;
       }
     } else if (action === "prev") {
       const prefix = input;
