@@ -24,6 +24,9 @@ export function Sidebar() {
         <NavLink to="/ex" className={linkClass}>
           /ex
         </NavLink>
+        <NavLink to="/edit" className={linkClass}>
+          /edit
+        </NavLink>
       </nav>
     </aside>
   );
