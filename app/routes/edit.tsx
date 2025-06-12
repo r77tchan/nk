@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Route } from "./+types/edit";
 
 export function meta({}: Route.MetaArgs) {
@@ -15,6 +15,7 @@ export default function Edit() {
   const [lineOpt, setLineOpt] = useState<"number" | "contains" | "blank">("number");
   const [headOpt, setHeadOpt] = useState<"trim" | "space">("trim");
   const [input, setInput] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setInput("");
@@ -27,6 +28,9 @@ export default function Edit() {
     const buffer = await file.arrayBuffer();
     const content = new TextDecoder("shift-jis").decode(buffer);
     setText(content);
+    if (fileRef.current) {
+      fileRef.current.value = "";
+    }
   };
 
   const run = () => {
@@ -71,7 +75,13 @@ export default function Edit() {
       <div>
         <label className="cursor-pointer inline-block">
           <span className="inline-block file:mr-2 rounded border border-gray-300 bg-gray-50 px-2 py-1 text-gray-700 hover:bg-gray-100">ファイルを選択</span>
-          <input type="file" accept="text/*" onChange={handleFile} className="hidden" />
+          <input
+            type="file"
+            accept="text/*"
+            onChange={handleFile}
+            ref={fileRef}
+            className="hidden"
+          />
         </label>
         <span className="ml-2 text-sm break-words">{fileName || "選択されていません"}</span>
       </div>
@@ -135,7 +145,26 @@ export default function Edit() {
         </div>
       )}
       <div>
-        <button onClick={run} className="px-4 py-1 bg-blue-500 text-white rounded">実行</button>
+        <button
+          onClick={run}
+          className="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 transition"
+        >
+          実行
+        </button>
+        <button
+          onClick={() => {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName || 'output.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+          }}
+          className="px-4 py-1 bg-green-500 text-white rounded ml-2 hover:bg-green-600 active:bg-green-700 transition"
+        >
+          保存
+        </button>
       </div>
       <textarea value={text} onChange={(e) => setText(e.target.value)} rows={10} wrap="off" className="w-full border p-2 rounded font-mono overflow-x-auto" />
     </main>
