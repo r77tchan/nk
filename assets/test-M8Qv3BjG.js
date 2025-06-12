@@ -1,0 +1,1 @@
+import{w as e,o as t}from"./chunk-NL6KNZEE-p2j07Jdd.js";function s({}){return[{title:"Test Page"},{name:"description",content:"ダミーテキストのページ"}]}const r=e(function(){return t.jsx("main",{className:"pt-16 p-4 container mx-auto",children:t.jsx("p",{children:"これはダミーテキストです。"})})});export{r as default,s as meta};
