@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0;url=/nk/" />
+    <script>
+      // Preserve direct URL access for SPA routes
+      var path = location.pathname.replace(/^\/nk/, "");
+      var search = location.search || "";
+      var hash = location.hash || "";
+      location.replace('/nk/' + '#!' + path + search + hash);
+    </script>
+  </head>
+  <body></body>
+</html>
