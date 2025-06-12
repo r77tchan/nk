@@ -166,7 +166,7 @@ export default function Edit() {
           保存
         </button>
       </div>
-      <textarea value={text} onChange={(e) => setText(e.target.value)} rows={10} wrap="off" className="w-full border p-2 rounded font-mono overflow-x-auto" />
+      <textarea value={text} onChange={(e) => setText(e.target.value)} rows={20} wrap="off" className="w-full border p-2 rounded font-mono overflow-x-auto" />
     </main>
   );
 }
