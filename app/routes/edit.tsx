@@ -90,7 +90,7 @@ export default function Edit() {
       if (headOpt === "trim") {
         const prefix = input;
         const n = prefix.length;
-        result = lines.map((l) => (l.startsWith(prefix) ? l : l.slice(n)));
+        result = lines.map((l) => (l.startsWith(prefix) ? l.slice(n) : l));
       } else {
         result = lines.map((l) => l.replace(/^[ \t]+/, ""));
       }
