@@ -1,98 +1,52 @@
-# Welcome to React Router!
+# nk
 
-A modern, production-ready template for building full-stack React applications using React Router.
+このリポジトリは React Router を使ったフルスタックアプリケーションのテンプレートです。Vite をベースに開発効率を高める設定が一通り揃っています。
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 特徴
+- サーバーサイドレンダリング対応
+- ホットモジュールリプレースメント (HMR)
+- アセットの最適化
+- データのロードとミューテーション
+- TypeScript 対応
+- Tailwind CSS によるスタイリング
 
-## Features
+## 推奨環境
+- Node.js 18 以降
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
+## セットアップ
+依存関係をインストールします。
 ```bash
 npm install
 ```
-
-### Development
-
-Start the development server with HMR:
-
+開発サーバーを起動するには次のコマンドを実行します。
 ```bash
 npm run dev
 ```
+ブラウザで <http://localhost:5173> を開くとアプリケーションが表示されます。
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
+## ビルド
+本番用のビルドを生成するには以下を実行します。
 ```bash
 npm run build
 ```
+ビルド成果物は `build` ディレクトリに出力されます。
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
+## GitHub Pages へのデプロイ
+このプロジェクトは GitHub Pages でホストできます。事前に `npm run build` を実行した後、以下のコマンドで静的ファイルを `gh-pages` ブランチへ公開します。
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm run deploy
 ```
+公開されたサイトは以下の URL で閲覧できます。
 
-The containerized application can be deployed to any platform that supports Docker, including:
+<https://r77tchan.github.io/nk/>
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+デプロイデータは `gh-pages` ブランチに保存されます。
 
-### GitHub Pages
+## カスタマイズのヒント
+- Tailwind の設定を変更してデザインを自由に拡張できます。
+- `app/routes` 以下にファイルを追加することで簡単にルートを増やせます。
+- 自動テストを導入したい場合は Jest や Testing Library の利用がおすすめです。
+- GitHub Actions を使えば CI/CD を構築してデプロイを自動化できます。
 
-`vite.config.ts` で `base: '/nk/'`、`react-router.config.ts` で `basename: '/nk/'` を設定しています。ビルド後に `build/client/index.html` を `build/client/404.html` にコピーすることで、直接 `/nk/edit` などにアクセスされた場合も SPA として動作します。
-
-```bash
-npm run build
-npm run postbuild
-```
-
-`build/client` ディレクトリの内容を GitHub Pages にデプロイしてください。
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+## ライセンス
+MIT License
