@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Encoding from "encoding-japanese";
 import type { Route } from "./+types/edit";
 
 export function meta({}: Route.MetaArgs) {
@@ -16,6 +17,34 @@ export default function Edit() {
   const [headOpt, setHeadOpt] = useState<"trim" | "space">("trim");
   const [input, setInput] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const save = async () => {
+    const sjis = Encoding.convert(Encoding.stringToCode(text), "SJIS", "UNICODE");
+    const data = new Uint8Array(sjis);
+    if ((window as any).showSaveFilePicker) {
+      try {
+        const handle = await (window as any).showSaveFilePicker({
+          suggestedName: fileName || "output.txt",
+          types: [
+            { description: "Text", accept: { "text/plain": [".txt"] } },
+          ],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(data);
+        await writable.close();
+        return;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    const blob = new Blob([data], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName || "output.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {
     setInput("");
@@ -152,15 +181,7 @@ export default function Edit() {
           実行
         </button>
         <button
-          onClick={() => {
-            const blob = new Blob([text], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName || 'output.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-          }}
+          onClick={save}
           className="px-4 py-1 bg-green-500 text-white rounded ml-2 hover:bg-green-600 active:bg-green-700 transition"
         >
           保存
