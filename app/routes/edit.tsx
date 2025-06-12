@@ -117,12 +117,16 @@ export default function Edit() {
           </label>
         </div>
       )}
-      {((action === "line" && lineOpt !== "blank") || action !== "line") && headOpt !== "space" && (
+      {((action === "line" && lineOpt !== "blank") || action === "prev" || (action === "head" && headOpt === "trim")) && (
         <div>
-          <input type={lineOpt === "number" ? "number" : "text"} value={input} onChange={(e) => setInput(e.target.value)} className="border px-2 py-1" />
+          <input
+            type={action === "line" && lineOpt === "number" ? "number" : "text"}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="border px-2 py-1"
+          />
         </div>
       )}
-      {action === "head" && headOpt === "space" && null}
       <div>
         <button onClick={run} className="px-4 py-1 bg-blue-500 text-white rounded">実行</button>
       </div>
