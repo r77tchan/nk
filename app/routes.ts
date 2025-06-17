@@ -7,4 +7,5 @@ export default [
   route("dup", "routes/dup.tsx"),
   route("ex", "routes/ex.tsx"),
   route("edit", "routes/edit.tsx"),
+  route("fq-manual", "routes/fq-manual.tsx"),
 ] satisfies RouteConfig;
