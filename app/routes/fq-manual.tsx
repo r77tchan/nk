@@ -16,19 +16,24 @@ export default function FqManual() {
 
   const run = () => {
     setError(null);
-    const rows1 = input1.split(/\r?\n/).filter((l) => l.trim() !== "");
-    const rows2 = input2.split(/\r?\n/).map((l) => l.split("\t"));
+    const rows1 = input1
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter((l) => l !== "");
+    const rows2 = input2
+      .split(/\r?\n/)
+      .map((l) => l.split("\t").map((c) => c.trim()));
     const results: string[] = [];
 
     for (const row of rows1) {
-      const cols = row.split("\t");
+      const cols = row.split("\t").map((c) => c.trim());
       if (cols.length < 4) {
         setError("入力1の形式が不正です");
         return;
       }
       const [code, name, comment, unit] = cols;
       const idx = parseInt(code.slice(1, 4), 10) - 1;
-      if (!rows2[idx]) {
+      if (Number.isNaN(idx) || idx < 0 || !rows2[idx]) {
         setError(`入力2の ${idx + 1} 行目がありません`);
         return;
       }
@@ -50,7 +55,9 @@ export default function FqManual() {
         cols2[10],
         cols2[11],
         comment,
-      ].join("\t");
+      ]
+        .map((v) => v.trim())
+        .join("\t");
       results.push(out);
     }
     setOutput(results.join("\n"));
