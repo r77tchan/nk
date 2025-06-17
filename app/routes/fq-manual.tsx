@@ -66,19 +66,23 @@ export default function FqManual() {
   return (
     <main className="pt-16 p-4 container mx-auto space-y-4">
       <h1 className="text-xl font-bold">/fq-manual</h1>
+      <label htmlFor="teigi">定義書「X001	項目名	定義	単位」</label>
       <textarea
         value={input1}
         onChange={(e) => setInput1(e.target.value)}
         rows={4}
         wrap="off"
         className="w-full border p-2 rounded font-mono overflow-x-auto"
+        id="teigi"
       />
+      <label htmlFor="hoshitori">星取表「▲	▲	○	○	□	□	▲	▲	○	○	□	□」</label>
       <textarea
         value={input2}
         onChange={(e) => setInput2(e.target.value)}
         rows={4}
         wrap="off"
         className="w-full border p-2 rounded font-mono overflow-x-auto"
+        id="hoshitori"
       />
       <div>
         <button
